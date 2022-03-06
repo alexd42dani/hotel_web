@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reserva" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a3c34be9-e9dd-4810-899e-d29d974a85f8">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT e.id, o.descripcion AS operador, e.comentarios, e.precio,
+t.descripcion AS tipo_cliente, te.descripcion AS tipo_reserva, e.fecha,
+eh.entrada, eh.salida, h.descripcion AS habitacion
+, CONCAT(p.nombre,' ',p.apellido) AS personas, p.id AS idpersona
+FROM reservas e
+LEFT JOIN operador_turistico o ON o.id = e.id_operador
+LEFT JOIN tipo_cliente t ON t.id = e.tipo_cliente_id
+LEFT JOIN tipo_reserva te ON te.id = e.tipo_reserva_id
+LEFT JOIN reserva_habitaciones eh ON eh.id_reserva = e.id
+LEFT JOIN habitaciones h ON h.id = eh.id_habitaciones
+LEFT JOIN reserva_personas ehh ON ehh.reservas_id = e.id
+LEFT JOIN persona p ON p.id = ehh.persona_id
+WHERE e.fecha BETWEEN '2018-12-10' AND '2018-12-23'
+ORDER BY e.id]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="operador" class="java.lang.String"/>
+	<field name="comentarios" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="precio" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tipo_cliente" class="java.lang.String"/>
+	<field name="tipo_reserva" class="java.lang.String"/>
+	<field name="fecha" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="entrada" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="salida" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="habitacion" class="java.lang.String"/>
+	<field name="personas" class="java.lang.String"/>
+	<field name="idpersona" class="java.lang.Integer"/>
+	<group name="id" isStartNewPage="true">
+		<groupExpression><![CDATA[$F{id}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<columnHeader>
+		<band height="280" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="0" y="0" width="802" height="66" backcolor="#E6E6E6" uuid="cc9105c4-9e1c-4b6c-b52e-8356323955e7"/>
+				<staticText>
+					<reportElement x="0" y="0" width="370" height="66" forecolor="#006699" uuid="81fe87bd-7adb-49f4-b908-a03cc733eaf4"/>
+					<box topPadding="4" leftPadding="4" bottomPadding="4" rightPadding="4"/>
+					<textElement verticalAlignment="Bottom">
+						<font fontName="Times New Roman" size="50" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Reserva]]></text>
+				</staticText>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="0" y="76" width="802" height="24" forecolor="#B89F7D" backcolor="#E6E6E6" uuid="38506f05-e244-4563-913c-b515c92d03e8"/>
+				<textField isStretchWithOverflow="true">
+					<reportElement x="2" y="0" width="695" height="24" forecolor="#006699" uuid="5e9a8366-79ae-4343-8e5b-23075f8c7ef7"/>
+					<textElement>
+						<font fontName="Times New Roman" size="18" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+				</textField>
+			</frame>
+			<staticText>
+				<reportElement x="276" y="187" width="72" height="18" forecolor="#006699" uuid="dc66711b-6f2f-4883-9fd1-1bae164a5dbd"/>
+				<textElement>
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Entrada :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="8" y="123" width="82" height="18" forecolor="#006699" uuid="7ade71f1-c507-40e5-9a15-288b127fdf75"/>
+				<textElement>
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Operador :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="8" y="154" width="97" height="18" forecolor="#006699" uuid="041d434e-151b-46ff-87f0-521a7b836f32"/>
+				<textElement>
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Comentarios :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="521" y="154" width="102" height="18" forecolor="#006699" uuid="6da20aba-2457-47fe-a83a-b7ee158566b6"/>
+				<textElement>
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="276" y="123" width="84" height="18" forecolor="#006699" uuid="36326014-50c4-4628-8fa8-2a48a32b5c53"/>
+				<textElement>
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Precio :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="276" y="154" width="84" height="18" forecolor="#006699" uuid="e0cb5312-44ef-4767-9fb0-f6d3d89ecabf"/>
+				<textElement>
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tipo Cliente :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="521" y="123" width="102" height="18" forecolor="#006699" uuid="2c9dd50e-4a85-4b41-9138-739881a6560e"/>
+				<textElement>
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tipo Reserva:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="187" width="95" height="18" forecolor="#006699" uuid="f0b50123-bca8-4905-9dfb-2138b74fbab6"/>
+				<textElement>
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Habitaciones :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="521" y="187" width="102" height="18" forecolor="#006699" uuid="0076f371-1993-4a1b-a3e3-ae137ca78113"/>
+				<textElement>
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Salida]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="125" y="121" width="133" height="20" uuid="96bfa8a0-83c4-4ede-9042-c0a9c585e10c"/>
+				<textElement>
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{operador}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="125" y="154" width="133" height="20" uuid="1cd600bb-e750-4b2d-ae53-18faf39d371f"/>
+				<textElement>
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{comentarios}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="370" y="123" width="129" height="20" uuid="a3ad905c-5395-4f3b-b15f-ef8888ddef4f"/>
+				<textElement>
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{precio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="370" y="154" width="129" height="20" uuid="68e086aa-ccc2-4fd8-aaac-f0e6425486f8"/>
+				<textElement>
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tipo_cliente}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="639" y="121" width="138" height="20" uuid="c537ce46-00d5-4581-9395-e7986270bcc0"/>
+				<textElement>
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tipo_reserva}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="639" y="154" width="138" height="20" uuid="dca9ad94-4792-47ff-a75e-78627097843d"/>
+				<textElement>
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="370" y="187" width="129" height="20" uuid="91b475e7-cea2-4e10-8826-d638a5b3fb38"/>
+				<textElement>
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{entrada}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="639" y="187" width="138" height="20" uuid="a8963131-9a8e-4751-a74e-1ff1766d0c6f"/>
+				<textElement>
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{salida}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="125" y="185" width="133" height="20" uuid="f8f3a6bb-8561-47e6-a140-3c12fab0e627"/>
+				<textElement>
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{habitacion}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="2" y="250" width="405" height="18" forecolor="#006699" backcolor="#E6E6E6" uuid="4b8481fe-97f3-4e91-a545-0397b77a8674"/>
+				<textElement>
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Id]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="407" y="250" width="395" height="18" forecolor="#006699" backcolor="#E6E6E6" uuid="dab682d9-0578-4c0c-92e1-7868976355e6"/>
+				<textElement>
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Personas]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="35" splitType="Stretch">
+			<textField>
+				<reportElement x="407" y="0" width="395" height="20" uuid="ef796dcb-4024-47c2-b4f8-dca0af8427e2"/>
+				<textElement>
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{personas}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="407" height="20" uuid="06fe1855-483b-4152-8d3d-cf3da408420b"/>
+				<textElement>
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{idpersona}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

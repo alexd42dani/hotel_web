@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="estadia" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="dce16c2d-1d1d-4e0c-8668-58e4bb3c984b">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
+	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true" pdfFontName="Times-Roman"/>
+	<style name="Detail" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman"/>
+	<style name="Row" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style mode="Opaque" backcolor="#F0EFEF"/>
+		</conditionalStyle>
+	</style>
+	<queryString language="SQL">
+		<![CDATA[SELECT e.id, o.descripcion AS operador, e.comentarios, e.precio,
+t.descripcion AS tipo_cliente, te.descripcion AS tipo_estadia, e.fecha,
+eh.entrada, eh.salida, h.descripcion AS habitacion,
+hh.id AS id_huesped, CONCAT(p.nombre,' ',p.apellido) AS huespedes
+FROM estadia e
+LEFT JOIN operador_turistico o ON o.id = e.id_operador
+LEFT JOIN tipo_cliente t ON t.id = e.tipo_cliente_id
+LEFT JOIN tipo_estadia te ON te.id = e.tipo_estadia_id
+LEFT JOIN estadia_habitaciones eh ON eh.id_estadia = e.id
+LEFT JOIN habitaciones h ON h.id = eh.id_habitacion
+LEFT JOIN estadia_huespedes ehh ON ehh.id_estadia = e.id
+LEFT JOIN huespedes hh ON hh.id = ehh.huespedes_id
+LEFT JOIN persona p ON p.id = hh.persona_id
+WHERE e.fecha BETWEEN '2018-12-10' AND '2018-12-23'
+ORDER BY e.id]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="operador" class="java.lang.String"/>
+	<field name="comentarios" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="precio" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tipo_cliente" class="java.lang.String"/>
+	<field name="tipo_estadia" class="java.lang.String"/>
+	<field name="fecha" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="entrada" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="salida" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="habitacion" class="java.lang.String"/>
+	<field name="id_huesped" class="java.lang.Integer"/>
+	<field name="huespedes" class="java.lang.String"/>
+	<group name="id" isStartNewPage="true">
+		<groupExpression><![CDATA[$F{id}]]></groupExpression>
+		<groupHeader>
+			<band height="210">
+				<frame>
+					<reportElement mode="Opaque" x="0" y="3" width="802" height="24" forecolor="#B89F7D" backcolor="#E6E6E6" uuid="77026ff3-a210-4537-b7b6-94d74da3458c"/>
+					<textField isStretchWithOverflow="true">
+						<reportElement style="SubTitle" x="2" y="0" width="695" height="24" forecolor="#006699" uuid="054b0bd2-7cd2-4e81-97d2-4c8c7a5e55ab"/>
+						<textElement>
+							<font isBold="false"/>
+						</textElement>
+						<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+					</textField>
+				</frame>
+				<staticText>
+					<reportElement style="Column header" x="0" y="56" width="82" height="18" forecolor="#006699" uuid="bf1b52a9-0ae8-4419-90e2-77be1e2a26ec"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Operador :]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" positionType="Float" x="116" y="56" width="125" height="18" uuid="c1532a5f-4daf-4f85-8f72-19a2f16c4671"/>
+					<textElement>
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{operador}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement style="Column header" x="0" y="87" width="97" height="18" forecolor="#006699" uuid="c3737212-ef51-4a90-bf97-14e081709b50"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Comentarios :]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" positionType="Float" x="116" y="87" width="125" height="18" uuid="2e672d31-022f-4b59-8198-20e60f8fdfdf"/>
+					<textElement>
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{comentarios}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement style="Column header" x="268" y="56" width="84" height="18" forecolor="#006699" uuid="64939e94-fa0e-4d01-a0da-940fbb2e9bdf"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Precio :]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" pattern="#,##0">
+					<reportElement style="Detail" positionType="Float" x="372" y="56" width="117" height="18" uuid="a0b813a3-b453-46f2-a7b4-c94d219ecabe"/>
+					<textElement>
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{precio}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement style="Column header" x="268" y="87" width="84" height="18" forecolor="#006699" uuid="a8b79a96-9806-4d07-b0c9-a4db44457573"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Tipo Cliente :]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" positionType="Float" x="372" y="87" width="117" height="18" uuid="533758b2-de09-4cb9-9eb9-2092f295fba6"/>
+					<textElement>
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{tipo_cliente}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement style="Column header" x="513" y="56" width="102" height="18" forecolor="#006699" uuid="449779b0-6bc5-41c1-a497-d40323696d53"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Tipo Estadia:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" positionType="Float" x="637" y="56" width="132" height="18" uuid="2b07df71-ad1a-4d04-9587-c37850aa37f6"/>
+					<textElement>
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{tipo_estadia}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement style="Column header" x="513" y="87" width="102" height="18" forecolor="#006699" uuid="2afe1f61-a302-494a-aa8f-5899be25c51c"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Fecha :]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy">
+					<reportElement style="Detail" positionType="Float" x="637" y="87" width="132" height="18" uuid="162a6e9b-a3d8-4b0b-816c-65afdbcfcc3e"/>
+					<textElement>
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement style="Column header" x="268" y="120" width="72" height="18" forecolor="#006699" uuid="513bce7e-4297-48d7-9ac6-c7b6e82ab136"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Entrada :]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Column header" x="513" y="120" width="102" height="18" forecolor="#006699" uuid="a8bc9acc-1035-423f-a360-1a2a8395f2dc"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Salida]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy">
+					<reportElement style="Detail" positionType="Float" x="372" y="120" width="117" height="18" uuid="9c568f40-bb37-4c6d-86ad-dcb8f0303edc"/>
+					<textElement>
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{entrada}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy">
+					<reportElement style="Detail" positionType="Float" x="637" y="120" width="132" height="18" uuid="a432320f-e543-4012-8d2a-941228dd0b96"/>
+					<textElement>
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{salida}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement style="Column header" x="2" y="120" width="95" height="18" forecolor="#006699" uuid="532de1d9-a4e9-440f-a139-096d16cb518f"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Habitaciones :]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" positionType="Float" x="116" y="120" width="125" height="18" uuid="4398fd25-8219-4e10-8cc4-e4bc61be0278"/>
+					<textElement>
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{habitacion}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement style="Column header" x="2" y="180" width="405" height="18" forecolor="#006699" backcolor="#E6E6E6" uuid="4ce2108c-38d2-4ad1-9899-e652f919cc44"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Id]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Column header" x="407" y="180" width="395" height="18" forecolor="#006699" backcolor="#E6E6E6" uuid="552a31ca-ca50-4a95-8be2-5856c9db6029"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Huespedes]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+	</group>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="66" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="2" y="0" width="802" height="66" backcolor="#E6E6E6" uuid="1bf01b49-594d-4337-af21-9f035f7bbab0"/>
+				<staticText>
+					<reportElement style="Title" x="0" y="0" width="370" height="66" forecolor="#006699" uuid="02963150-5a5f-4ff1-b2a6-96b1d54350be"/>
+					<box topPadding="4" leftPadding="4" bottomPadding="4" rightPadding="4"/>
+					<textElement verticalAlignment="Bottom">
+						<font isBold="false"/>
+					</textElement>
+					<text><![CDATA[Estadia]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="34" splitType="Stretch">
+			<textField isStretchWithOverflow="true">
+				<reportElement style="Detail" positionType="Float" x="2" y="0" width="405" height="18" uuid="050ac2ab-6eb8-4e90-b697-53426b3c8e47"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{id_huesped}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="Detail" positionType="Float" x="407" y="0" width="395" height="18" uuid="202e071b-acec-4800-b0f3-576c2b39acef"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{huespedes}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

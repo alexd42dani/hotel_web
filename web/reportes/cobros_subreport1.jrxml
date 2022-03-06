@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="cobros_subreport1" language="groovy" pageWidth="802" pageHeight="555" orientation="Landscape" columnWidth="802" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="81bf46b5-8ca6-4497-a1a4-255f27521589">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="id" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[SELECT c.id, c.fecha, cac.monto AS total, CONCAT(p.nombre,' ',p.apellido) AS empleado,
+ce.monto AS cobro_efectivo,
+COALESCE(en.descripcion, '') AS entidad,COALESCE(ct.serie,'') AS serie,COALESCE(tt.descripcion, '') AS tipo_tarjeta,
+COALESCE(mt.Descripcion, '') AS marca_Tarjeta,
+COALESCE(pro.descripcion, '') AS procesadora, COALESCE(ct.monto, '') AS monto_tarjeta,
+COALESCE(enn.Descripcion, '') AS entidad_cheque,
+ COALESCE(cc.numero, '') AS numero_cheque, COALESCE(cc.monto, '') AS monto_cheque, COALESCE(cc.titular, '') AS titular,
+ ct.id AS id_tarjeta, cc.id AS id_cheque
+FROM cobros c
+LEFT JOIN cuentas_a_cobrar cac ON cac.id = c.cuentas_a_cobrar_id
+LEFT JOIN apertura_cierre ac ON ac.id = c.apertura_cierre_id
+LEFT JOIN usuarios u ON u.id = ac.usuario_id
+LEFT JOIN empleado e ON e.id = u.empleado_id
+LEFT JOIN persona p ON p.id = e.persona_id
+LEFT JOIN cobro_efectivo ce ON ce.cobrosid = c.id
+LEFT JOIN cobro_tarjeta ct ON ct.cobrosid = c.id
+LEFT JOIN cobro_cheque cc ON cc.cobrosid = c.id
+LEFT JOIN entidad en ON en.id = ct.entidad_id
+LEFT JOIN tipo_tarjeta tt ON tt.id = ct.tipo_tarjeta_id
+LEFT JOIN marca_tarjeta mt ON mt.id = ct.marca_tarjeta_id
+LEFT JOIN procesadora pro ON pro.id = ct.procesadora_id
+LEFT JOIN entidad enn ON enn.id = cc.identidad
+WHERE c.id = $P{id}
+GROUP BY cc.id]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fecha" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="total" class="java.lang.Integer"/>
+	<field name="empleado" class="java.lang.String"/>
+	<field name="cobro_efectivo" class="java.lang.Integer"/>
+	<field name="entidad" class="java.lang.String"/>
+	<field name="serie" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tipo_tarjeta" class="java.lang.String"/>
+	<field name="marca_Tarjeta" class="java.lang.String"/>
+	<field name="procesadora" class="java.lang.String"/>
+	<field name="monto_tarjeta" class="java.lang.String"/>
+	<field name="entidad_cheque" class="java.lang.String"/>
+	<field name="numero_cheque" class="java.lang.String"/>
+	<field name="monto_cheque" class="java.lang.String"/>
+	<field name="titular" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="id_tarjeta" class="java.lang.Integer"/>
+	<field name="id_cheque" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<columnHeader>
+		<band height="30">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="200" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="b1d4cb46-e6c4-462f-b57f-6ff7997a47b1"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="14" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Entidad]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="200" y="0" width="200" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="62191b83-9d3c-49ff-9685-8b69e3e0d35c"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="14" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Numero Cheque]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="400" y="0" width="200" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="c807f066-ac6b-442e-9c14-c209400cc99d"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="14" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Monto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="600" y="0" width="200" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="8a537701-9237-4703-8cf7-1fc580234ad6"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="14" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Titular]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="33" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="200" height="20" uuid="ae9ebad6-9a29-47c2-ade3-e7c4ebc67d2d"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{entidad_cheque}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="200" y="0" width="200" height="20" uuid="29d6b65a-e6fb-4f9a-87a5-cc8ce2ea9c76"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{numero_cheque}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="400" y="0" width="200" height="20" uuid="17f94ed8-5d68-412b-8c73-84f71f3dcb8b"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{monto_cheque}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="600" y="0" width="200" height="20" uuid="54ed81a4-03ad-415e-9e2e-3809217fa4c9"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{titular}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

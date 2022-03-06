@@ -1,0 +1,295 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+
+  <head>
+    <meta name="generator" content="HelpNDoc Freeware Edition">
+    <link rel="StyleSheet" href="toc.css" type="text/css"/>
+    <script type="text/javascript" src="jquery.min.js"></script>
+    <script type="text/javascript" src="jquery.cookie.js"></script>
+    <script type="text/javascript" src="jquery.treeview.min.js"></script>
+    <script type="text/javascript" src="jquery.rich-array-hnd.js"></script>
+    <script type="text/javascript" src="searchdata.js"></script>
+    <script type="text/javascript"><!--
+      $(document).ready(function(){
+        $("#toc").treeview(
+        {collapsed: true}
+        )
+        $("#keywords").treeview({collapsed: true});
+        $(document.body).click(function(e){var $target = $(e.target); if($target.is("a")) return; hidePopup();});
+        $(function(){var tabContainers = $("div.tabs > div");tabContainers.hide().filter(":first").show();$("div.tabs ul.tabNavigation a").click(function(){tabContainers.hide();
+        tabContainers.filter(this.hash).show();$("div.tabs ul.tabNavigation a").removeClass("selected");$(this).addClass("selected");return false;}).filter(":first").click();});
+      });
+      function hidePopup() {if($("#popupMenu")) $("#popupMenu").remove();}
+      function showPopup(oSender,aLinks){hidePopup();if (aLinks==0) return true;var oParentDiv=document.createElement("DIV");oParentDiv.id="popupMenu";var oLink,oBr=null;
+      for (var nCnt=0;nCnt<aLinks.length;nCnt++){oLink=document.createElement("A");oLink.innerHTML=aLinks[nCnt][0];oLink.href=aLinks[nCnt][1];oLink.target="FrameMain";oLink.onclick=hidePopup;
+      oParentDiv.appendChild(oLink);if (nCnt<aLinks.length-1){oBr=document.createElement("BR");oParentDiv.appendChild(oBr);}}document.body.appendChild(oParentDiv);var pos=$(oSender).offset(); 
+      var height=$(oSender).height();$(oParentDiv).css({"backgroundColor": "#EEEEEE","border": "1px solid #999999","position": "absolute","left": (pos.left+20)+"px","top": (pos.top+height+5)+"px",
+      "padding": 5+"px"});$(oParentDiv).show();return false;}
+      function performSearch(){sValue = $("#search_value").val().toLowerCase();var aValues = sValue.split(" ");var aFinalResults = [];for (var nValue = 0; nValue < aValues.length; nValue++){if (aValues[nValue] == "") continue;var aResults = oSearchData[aValues[nValue]];if (aResults && aResults.length > 0){if (nValue == 0) aFinalResults = aResults
+else aFinalResults = jQuery.richArray.intersect(aFinalResults, aResults);}else{aFinalResults = [];break;}}if (aFinalResults.length > 0){$("#search_results").html("Found " + aFinalResults.length + " results");for (var nCnt = 0; nCnt < aFinalResults.length; nCnt++){var oElmt = document.createElement("DIV");oElmt.innerHTML = "<a href='" + aFinalResults[nCnt][0] + "?search=" + sValue + "' target='FrameMain'>" + aFinalResults[nCnt][1] + "</a> (" + aFinalResults[nCnt][2] + ")<br/>";$(oElmt).appendTo($("#search_results"));}}else{$("#search_results").html("No result found");}}
+    //--></script>
+    <style type="text/css">
+      ul.tabNavigation{list-style: none;margin: 0;padding: 10px;}ul.tabNavigation li{display: inline;}ul.tabNavigation li A{padding: 3px 5px;background-color: #ccc;color: #000;
+      text-decoration: none;}ul.tabNavigation li A.selected,ul.tabNavigation li A:hover{background-color: #333;color: #fff;}ul.tabNavigation li A:focus{outline: 0;}
+      </style>
+  </head>
+
+  <body>
+  
+    <div class="tabs">
+      <ul class="tabNavigation">
+        <li><a href="#tab_toc">Contents</a></li>
+        <li><a href="#tab_keywords">Index</a></li>
+        <li><a href="#tab_search">Search</a></li>
+      </ul>
+      <div id="tab_toc">
+        <ul id="toc" class="filetree">
+          
+          <li>
+            <a href="SistemadeGestionparacargadeDat1.html" class="folder" target="FrameMain">Sistema de Gestion para carga de Datos</a>
+            <ul>
+              
+              <li>
+                <a href="Referenciales1.html" class="folder" target="FrameMain">Referenciales</a>
+                <ul>
+                  
+                  <li>
+                    <a href="Cargos1.html" class="folder" target="FrameMain">Tarifas</a>
+                    <ul>
+                      
+                      <li>
+                        <a href="cargos_mantener42243262.html" class="file" target="FrameMain">Tarifas</a>
+                      </li>
+                      
+                      <li>
+                        <a href="CargosEditar42243262.html" class="file" target="FrameMain">Tarifas Agregar</a>
+                      </li>
+                      
+                      <li>
+                        <a href="CargosModificar42242262.html" class="file" target="FrameMain">Tarifas Modificar</a>
+                      </li>
+                      
+                      <li>
+                        <a href="CargosEliminar42243242.html" class="file" target="FrameMain">Tarifas Eliminar</a>
+                      </li>
+                    </ul>
+                  </li>
+                  
+                  <li>
+                    <a href="Cargos22.html" class="folder" target="FrameMain">Habitaciones</a>
+                    <ul>
+                      
+                      <li>
+                        <a href="cargos_mantener422432622.html" class="file" target="FrameMain">Habitaciones</a>
+                      </li>
+                      
+                      <li>
+                        <a href="CargosEditar422432622.html" class="file" target="FrameMain">Habitaciones Agregar</a>
+                      </li>
+                      
+                      <li>
+                        <a href="CargosModificar422422622.html" class="file" target="FrameMain">Habitaciones Modificar</a>
+                      </li>
+                      
+                      <li>
+                        <a href="CargosEliminar422432422.html" class="file" target="FrameMain">Habitaciones Eliminar</a>
+                      </li>
+                    </ul>
+                  </li>
+                  
+                  <li>
+                    <a href="Cargos2222.html" class="folder" target="FrameMain">Personas</a>
+                    <ul>
+                      
+                      <li>
+                        <a href="cargos_mantener4224326222.html" class="file" target="FrameMain">Personas</a>
+                      </li>
+                      
+                      <li>
+                        <a href="CargosEditar4224326222.html" class="file" target="FrameMain">Personas Agregar</a>
+                      </li>
+                      
+                      <li>
+                        <a href="CargosModificar4224226222.html" class="file" target="FrameMain">Personas Modificar</a>
+                      </li>
+                      
+                      <li>
+                        <a href="CargosEliminar4224324222.html" class="file" target="FrameMain">Personas Eliminar</a>
+                      </li>
+                    </ul>
+                  </li>
+                  
+                  <li>
+                    <a href="Cargos222222.html" class="folder" target="FrameMain">Usuarios</a>
+                    <ul>
+                      
+                      <li>
+                        <a href="cargos_mantener42243262222.html" class="file" target="FrameMain">Usuarios</a>
+                      </li>
+                      
+                      <li>
+                        <a href="CargosEditar42243262222.html" class="file" target="FrameMain">Usuarios Agregar</a>
+                      </li>
+                      
+                      <li>
+                        <a href="CargosModificar42242262222.html" class="file" target="FrameMain">Usuarios Modificar</a>
+                      </li>
+                      
+                      <li>
+                        <a href="CargosEliminar42243242222.html" class="file" target="FrameMain">Usuarios Eliminar</a>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              
+              <li>
+                <a href="Movimientos1.html" class="folder" target="FrameMain">Movimientos</a>
+                <ul>
+                  
+                  <li>
+                    <a href="Cargos2422222423221.html" class="folder" target="FrameMain">Estadia</a>
+                    <ul>
+                      
+                      <li>
+                        <a href="cargos_mantener4224321.html" class="file" target="FrameMain">Estadia</a>
+                      </li>
+                      
+                      <li>
+                        <a href="CargosEditar4224321.html" class="file" target="FrameMain">Estadia Agregar</a>
+                      </li>
+                      
+                      <li>
+                        <a href="CargosModificar4224221.html" class="file" target="FrameMain">Estadia Modificar</a>
+                      </li>
+                      
+                      <li>
+                        <a href="CargosEliminar4224321.html" class="file" target="FrameMain">Estadia Eliminar</a>
+                      </li>
+                    </ul>
+                  </li>
+                  
+                  <li>
+                    <a href="Cargos242222242322221.html" class="folder" target="FrameMain">Reservas</a>
+                    <ul>
+                      
+                      <li>
+                        <a href="cargos_mantener42243221.html" class="file" target="FrameMain">Reservas</a>
+                      </li>
+                      
+                      <li>
+                        <a href="CargosEditar42243221.html" class="file" target="FrameMain">Reservas Agregar</a>
+                      </li>
+                      
+                      <li>
+                        <a href="CargosModificar42242221.html" class="file" target="FrameMain">Reservas Modificar</a>
+                      </li>
+                      
+                      <li>
+                        <a href="CargosEliminar42243221.html" class="file" target="FrameMain">Reservas Eliminar</a>
+                      </li>
+                    </ul>
+                  </li>
+                  
+                  <li>
+                    <a href="Cargos24222224232223.html" class="folder" target="FrameMain">Servicios</a>
+                    <ul>
+                      
+                      <li>
+                        <a href="cargos_mantener4224323.html" class="file" target="FrameMain">Servicios</a>
+                      </li>
+                      
+                      <li>
+                        <a href="CargosEditar4224323.html" class="file" target="FrameMain">Servicios Agregar</a>
+                      </li>
+                      
+                      <li>
+                        <a href="CargosModificar4224223.html" class="file" target="FrameMain">Servicios Modificar</a>
+                      </li>
+                      
+                      <li>
+                        <a href="CargosEliminar4224323.html" class="file" target="FrameMain">Servicios Eliminar</a>
+                      </li>
+                    </ul>
+                  </li>
+                  
+                  <li>
+                    <a href="Cargos24222224232224.html" class="folder" target="FrameMain">Factura</a>
+                    <ul>
+                      
+                      <li>
+                        <a href="cargos_mantener4224324.html" class="file" target="FrameMain">Factura</a>
+                      </li>
+                      
+                      <li>
+                        <a href="CargosEditar4224324.html" class="file" target="FrameMain">Factura Agregar</a>
+                      </li>
+                      
+                      <li>
+                        <a href="CargosModificar4224224.html" class="file" target="FrameMain">Factura Modificar</a>
+                      </li>
+                    </ul>
+                  </li>
+                  
+                  <li>
+                    <a href="Cargos24222224232225.html" class="folder" target="FrameMain">Apertura_cierre</a>
+                    <ul>
+                      
+                      <li>
+                        <a href="cargos_mantener4224325.html" class="file" target="FrameMain">Apertura_cierre</a>
+                      </li>
+                      
+                      <li>
+                        <a href="CargosEditar4224325.html" class="file" target="FrameMain">Apertura_cierre Agregar</a>
+                      </li>
+                      
+                      <li>
+                        <a href="CargosModificar4224225.html" class="file" target="FrameMain">Apertura_cierre Modificar</a>
+                      </li>
+                    </ul>
+                  </li>
+                  
+                  <li>
+                    <a href="Cargos2422222423222422.html" class="folder" target="FrameMain">Cobros</a>
+                    <ul>
+                      
+                      <li>
+                        <a href="cargos_mantener42243242.html" class="file" target="FrameMain">Cobros</a>
+                      </li>
+                      
+                      <li>
+                        <a href="CargosEditar42243242.html" class="file" target="FrameMain">Cobros Agregar</a>
+                      </li>
+                      
+                      <li>
+                        <a href="CargosModificar42242242.html" class="file" target="FrameMain">Cobros Modificar</a>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              
+              <li>
+                <a href="Reportes1.html" class="folder" target="FrameMain">Reportes</a>
+                <ul>
+                  
+                  <li>
+                    <a href="ListadoAgendaMedica222222222651.html" class="file" target="FrameMain">Listado de Facturas</a>
+                  </li>
+                </li>
+              </li>
+          </ul>
+        </div>
+        
+        <div id="tab_keywords">
+          <ul id="keywords" class="filetree">
+          </ul>
+        </div>
+        <div id="tab_search" style="padding:10px">
+          Search: <form onsubmit="performSearch(); return false;"><input id="search_value"></input><input type="submit" value="search"/></form><div id="search_results"></div>
+        </div>
+      </div>
+    </div>
+  </body>
+
+</html>

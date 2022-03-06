@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="factura_hotel" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5b5c814b-cff9-4038-b825-47bc269f952d">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT f.id AS factura_id, f.fecha, f.tipo_factura,CONCAT(p.nombre,' ',p.apellido) AS huesped,
+f.ruc, f.nro_factura, f.precio AS precio_factura, s.id AS servicios_id, sn.nombre AS servicio, s.precio AS servicio_precio, i.descripcion AS iva,
+t.id AS idtarifa,tn.descripcion AS tarifa, tem.descripcion AS temporadas, han.nombre AS habitaciones, t.precio AS tarifa_precio,
+CONCAT ('-Tarifa:  ',tn.descripcion,'  -Temporada:  ',tem.descripcion,'  -Habitacion:  ',han.nombre) AS desripcion_tarifa,
+ee.precio AS precio_estadia
+FROM factura f
+LEFT JOIN huespedes h ON h.id = f.huesped_id
+LEFT JOIN persona p ON h.persona_id = p.id
+LEFT JOIN factura_servicios fs ON fs.factura_id = f.id
+LEFT JOIN estadia_servicios es ON es.id = fs.estadia_servicios_id
+LEFT JOIN servicios s ON s.id = es.servicios_id
+LEFT JOIN servicios_nombres sn ON sn.id = s.nombre_id
+LEFT JOIN iva i ON i.id = fs.iva_id
+LEFT JOIN factura_tarifas ft ON ft.factura_id = f.id
+LEFT JOIN tarifas t ON t.id = ft.tarifa_id
+LEFT JOIN tarifas_nombres tn ON tn.id = t.id
+LEFT JOIN temporadas tem ON tem.id = t.temporada_id
+LEFT JOIN habitaciones ha ON ha.id = t.habitacion_id
+LEFT JOIN habitacion_nombres han ON han.id = ha.nombre_id
+LEFT JOIN estadia ee ON ee.id = es.estadia_id
+WHERE f.fecha BETWEEN '2018-12-13' AND '2018-12-30' ORDER BY f.fecha]]>
+	</queryString>
+	<field name="factura_id" class="java.lang.Integer"/>
+	<field name="fecha" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tipo_factura" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="huesped" class="java.lang.String"/>
+	<field name="ruc" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nro_factura" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="precio_factura" class="java.lang.Integer"/>
+	<field name="servicios_id" class="java.lang.Integer"/>
+	<field name="servicio" class="java.lang.String"/>
+	<field name="servicio_precio" class="java.lang.Integer"/>
+	<field name="iva" class="java.lang.String"/>
+	<field name="idtarifa" class="java.lang.Integer"/>
+	<field name="tarifa" class="java.lang.String"/>
+	<field name="temporadas" class="java.lang.String"/>
+	<field name="habitaciones" class="java.lang.String"/>
+	<field name="tarifa_precio" class="java.lang.Integer"/>
+	<field name="desripcion_tarifa" class="java.lang.String"/>
+	<field name="precio_estadia" class="java.lang.Integer"/>
+	<group name="factura_id">
+		<groupExpression><![CDATA[$F{factura_id}]]></groupExpression>
+		<groupHeader>
+			<band height="193">
+				<rectangle>
+					<reportElement x="0" y="18" width="802" height="95" uuid="dab94da9-5b89-4ca0-91f7-77c4a0de7e41"/>
+				</rectangle>
+				<staticText>
+					<reportElement positionType="Float" x="30" y="34" width="85" height="14" forecolor="#000000" uuid="70c9ee3c-8a44-4379-a8bd-39786eadbd2c"/>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" size="12" isBold="true" pdfFontName="Helvetica"/>
+					</textElement>
+					<text><![CDATA[Fecha :]]></text>
+				</staticText>
+				<staticText>
+					<reportElement positionType="Float" x="632" y="133" width="85" height="14" forecolor="#000000" uuid="1cbd1df3-eabb-4d83-bdf6-59d7e37dddd7"/>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" size="12" isBold="true" pdfFontName="Helvetica"/>
+					</textElement>
+					<text><![CDATA[Precio]]></text>
+				</staticText>
+				<staticText>
+					<reportElement positionType="Float" x="717" y="132" width="85" height="14" forecolor="#000000" uuid="cffd84c9-8d8a-4adf-aeec-03df2e352605"/>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" size="12" isBold="true" pdfFontName="Helvetica"/>
+					</textElement>
+					<text><![CDATA[Iva]]></text>
+				</staticText>
+				<staticText>
+					<reportElement positionType="Float" x="42" y="133" width="590" height="14" forecolor="#000000" uuid="e3c4610e-a5a5-49d5-a99b-32d029350f3f"/>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" size="12" isBold="true" pdfFontName="Helvetica"/>
+					</textElement>
+					<text><![CDATA[Decripcion]]></text>
+				</staticText>
+				<textField pattern="dd/MM/yyyy">
+					<reportElement x="155" y="34" width="100" height="14" uuid="5130a7ae-b759-42fe-b04b-f8f124322fc6"/>
+					<textElement>
+						<font fontName="Arial" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement positionType="Float" x="30" y="72" width="85" height="14" forecolor="#000000" uuid="6e2c6859-284c-4d72-806a-abe4886760d3"/>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" size="12" isBold="true" pdfFontName="Helvetica"/>
+					</textElement>
+					<text><![CDATA[Huesped :]]></text>
+				</staticText>
+				<staticText>
+					<reportElement positionType="Float" x="0" y="133" width="42" height="14" forecolor="#000000" uuid="9ce34ad2-e55f-44f4-8171-8e5ef5f74f28"/>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" size="12" isBold="true" pdfFontName="Helvetica"/>
+					</textElement>
+					<text><![CDATA[Id]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="0" y="162" width="42" height="20" uuid="83a86e8e-bc39-4632-8e9f-66bc59fbbafb"/>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{idtarifa}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="717" y="162" width="85" height="20" uuid="5c75296b-5057-4532-8dd1-04c07b980a91"/>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" size="12"/>
+					</textElement>
+					<text><![CDATA[IVA 10%]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="43" y="162" width="589" height="20" uuid="ac0da86c-5c08-4de0-9cfc-9cee2ca1b16b"/>
+					<textElement textAlignment="Left">
+						<font fontName="Arial" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{desripcion_tarifa}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement positionType="Float" x="485" y="72" width="85" height="14" forecolor="#000000" uuid="20ad80be-ba85-477a-b8e7-f81a26719a0f"/>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" size="12" isBold="true" pdfFontName="Helvetica"/>
+					</textElement>
+					<text><![CDATA[Ruc :]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="155" y="73" width="242" height="14" uuid="eec7937a-03da-4a32-8a0d-353a90d2744e"/>
+					<textElement>
+						<font fontName="Arial" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{huesped}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="617" y="73" width="100" height="14" uuid="cb8e4951-e4c4-48ea-bfec-776404fc0c0f"/>
+					<textElement>
+						<font fontName="Arial" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{ruc}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0">
+					<reportElement x="632" y="162" width="85" height="20" uuid="0aa8d30f-ffb2-48c4-bf7c-85bcf3d90e18"/>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{precio_estadia}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement x="0" y="133" width="802" height="1" uuid="d86edeba-755e-4d6b-8437-77dddf295d80"/>
+				</line>
+				<line>
+					<reportElement x="0" y="148" width="802" height="1" uuid="b30cc78a-9898-4943-9348-690a18bf9bbe"/>
+				</line>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="50">
+				<staticText>
+					<reportElement positionType="Float" x="42" y="12" width="143" height="14" forecolor="#000000" uuid="e8e03554-e409-420e-87d4-879d6b1e52e5"/>
+					<textElement>
+						<font fontName="Arial" size="12" isBold="true" pdfFontName="Helvetica"/>
+					</textElement>
+					<text><![CDATA[Total Con IVA Incluido :]]></text>
+				</staticText>
+				<textField pattern="#,##0">
+					<reportElement x="632" y="12" width="85" height="14" uuid="d4591a7d-beb1-4f0d-a90e-235fb38ea79d"/>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{precio_factura}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement x="0" y="0" width="802" height="1" uuid="863ab48d-5a1c-494c-a911-8b654b3f9904"/>
+				</line>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<columnHeader>
+		<band height="76" splitType="Stretch">
+			<rectangle radius="10">
+				<reportElement x="545" y="0" width="257" height="67" uuid="d4d71049-eea1-4f00-b2ee-90eeb59d3726"/>
+			</rectangle>
+			<rectangle radius="10">
+				<reportElement x="0" y="0" width="535" height="67" uuid="d6887413-13ff-43c2-b507-6c899e8c2391"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="19" y="0" width="472" height="67" forecolor="#666666" uuid="1e4729ad-24ff-4ee1-b6b1-e4de61e49dd3"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="19" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Hotel
+Awwa
+Encarnacion - Paraguay]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="570" y="14" width="85" height="14" forecolor="#000000" uuid="c327a3f6-f308-4274-97c1-fcc1f8159ec2"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="12" isBold="true" pdfFontName="Helvetica"/>
+				</textElement>
+				<text><![CDATA[Nro :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="655" y="14" width="100" height="14" uuid="ed09a9d1-6d77-4e4d-94a6-c2ecb9b355c8"/>
+				<textFieldExpression><![CDATA[$F{nro_factura}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="655" y="36" width="100" height="14" uuid="3d4e5b0a-91ec-491a-9e7f-633445eef699"/>
+				<textFieldExpression><![CDATA[$F{tipo_factura}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="570" y="36" width="85" height="14" forecolor="#000000" uuid="17442f56-ebb2-4b98-a74e-9bb653f07414"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="12" isBold="true" pdfFontName="Helvetica"/>
+				</textElement>
+				<text><![CDATA[Tipo :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="580" y="-99" width="85" height="14" forecolor="#000000" uuid="ad28526a-5eea-47b7-ae0b-64b55fd9ac1b"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="12" isBold="true" pdfFontName="Helvetica"/>
+				</textElement>
+				<text><![CDATA[Nro :]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="44" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="11" width="42" height="20" uuid="fa5b4a63-075e-47ee-aa54-e80c519f5662"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{servicios_id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="43" y="11" width="589" height="20" uuid="7d40afa6-07c1-426b-8fc0-6a770ecb68df"/>
+				<textElement textAlignment="Left">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{servicio}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="632" y="11" width="85" height="20" uuid="54cfcc9c-6579-4389-aaa9-11241b6f2634"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{servicio_precio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="717" y="11" width="85" height="20" uuid="6ee1ddd0-f419-43b4-83df-07fabb9bc5a5"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{iva}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+</jasperReport>
